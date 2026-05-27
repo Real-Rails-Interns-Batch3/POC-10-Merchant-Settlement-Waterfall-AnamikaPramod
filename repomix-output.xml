@@ -1,0 +1,1202 @@
+This file is a merged representation of the entire codebase, combined into a single document by Repomix.
+
+<file_summary>
+This section contains a summary of this file.
+
+<purpose>
+This file contains a packed representation of the entire repository's contents.
+It is designed to be easily consumable by AI systems for analysis, code review,
+or other automated processes.
+</purpose>
+
+<file_format>
+The content is organized as follows:
+1. This summary section
+2. Repository information
+3. Directory structure
+4. Repository files (if enabled)
+5. Multiple file entries, each consisting of:
+  - File path as an attribute
+  - Full contents of the file
+</file_format>
+
+<usage_guidelines>
+- This file should be treated as read-only. Any changes should be made to the
+  original repository files, not this packed version.
+- When processing this file, use the file path to distinguish
+  between different files in the repository.
+- Be aware that this file may contain sensitive information. Handle it with
+  the same level of security as you would the original repository.
+</usage_guidelines>
+
+<notes>
+- Some files may have been excluded based on .gitignore rules and Repomix's configuration
+- Binary files are not included in this packed representation. Please refer to the Repository Structure section for a complete list of file paths, including binary files
+- Files matching patterns in .gitignore are excluded
+- Files matching default ignore patterns are excluded
+- Files are sorted by Git change count (files with more changes are at the bottom)
+</notes>
+
+</file_summary>
+
+<directory_structure>
+apps/vercel.json
+apps/web/.gitignore
+apps/web/AGENTS.md
+apps/web/app/favicon.ico
+apps/web/app/globals.css
+apps/web/app/layout.tsx
+apps/web/app/page.tsx
+apps/web/CLAUDE.md
+apps/web/components/dataEngine.ts
+apps/web/components/DownloadData.tsx
+apps/web/components/Filters.tsx
+apps/web/components/Header.tsx
+apps/web/components/PricingScenario.tsx
+apps/web/components/RailControllers.tsx
+apps/web/components/ReserveHoldPanel.tsx
+apps/web/components/SettlementDelayChart.tsx
+apps/web/components/SettlementWaterfall.tsx
+apps/web/components/WhyThisMatters.tsx
+apps/web/eslint.config.mjs
+apps/web/next.config.ts
+apps/web/package.json
+apps/web/postcss.config.mjs
+apps/web/public/file.svg
+apps/web/public/globe.svg
+apps/web/public/next.svg
+apps/web/public/sample-data/merchant_settlement_sample.csv
+apps/web/public/vercel.svg
+apps/web/public/window.svg
+apps/web/README.md
+apps/web/tsconfig.json
+README.md
+screenshots/dashboard.png
+screenshots/delay_chart.png
+screenshots/desktop.ini
+screenshots/sidebar1.png
+screenshots/sidebar2.png
+screenshots/waterfall_chart.png
+</directory_structure>
+
+<files>
+This section contains the contents of the repository's files.
+
+<file path="screenshots/desktop.ini">
+[LocalizedFileNames]
+dashboard.png=@dashboard,0
+</file>
+
+<file path="apps/vercel.json">
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "apps/web/package.json",
+      "use": "@vercel/next"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "apps/web/$1"
+    }
+  ]
+}
+</file>
+
+<file path="apps/web/.gitignore">
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# env files (can opt-in for committing if needed)
+.env*
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+</file>
+
+<file path="apps/web/AGENTS.md">
+<!-- BEGIN:nextjs-agent-rules -->
+# This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
+<!-- END:nextjs-agent-rules -->
+</file>
+
+<file path="apps/web/app/globals.css">
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+body {
+  background: #030712;
+  color: #E5E7EB;
+}
+</file>
+
+<file path="apps/web/app/layout.tsx">
+import type { Metadata } from "next";
+import { Geist, Geist_Mono } from "next/font/google";
+import "./globals.css";
+
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
+
+export const metadata: Metadata = {
+  title: "Create Next App",
+  description: "Generated by create next app",
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html
+      lang="en"
+      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+    >
+      <body className="min-h-full flex flex-col">{children}</body>
+    </html>
+  );
+}
+</file>
+
+<file path="apps/web/CLAUDE.md">
+@AGENTS.md
+</file>
+
+<file path="apps/web/components/dataEngine.ts">
+export function getSettlementData(filters: any) {
+  const baseGross = 125000
+
+  // Merchant multiplier
+  let multiplier = 1
+
+  if (filters?.merchant === "Amazon") multiplier *= 1.4
+  if (filters?.merchant === "Flipkart") multiplier *= 1.2
+  if (filters?.merchant === "Shopify") multiplier *= 0.9
+
+  // Processor impact
+  if (filters?.processor === "Stripe") multiplier *= 1.05
+  if (filters?.processor === "Razorpay") multiplier *= 0.95
+  if (filters?.processor === "Adyen") multiplier *= 1.02
+
+  const gross = Math.round(baseGross * multiplier)
+
+  const fees = Math.round(gross * 0.038) // 3.8%
+  const reserve = Math.round(gross * 0.04) // 4%
+  const net = gross - fees - reserve
+
+  return {
+    gross,
+    fees,
+    reserve,
+    net,
+  }
+}
+
+export function getDelayData(filters: any) {
+  let base = [24, 30, 18, 42, 36, 20]
+
+  // Merchant effects on settlement speed
+  if (filters?.merchant === "Amazon") base = base.map(v => v + 6)
+  if (filters?.merchant === "Flipkart") base = base.map(v => v + 3)
+  if (filters?.merchant === "Shopify") base = base.map(v => v - 2)
+
+  // Processor effects
+  if (filters?.processor === "Stripe") base = base.map(v => v - 2)
+  if (filters?.processor === "Razorpay") base = base.map(v => v + 1)
+  if (filters?.processor === "Adyen") base = base.map(v => v - 1)
+
+  return [
+    { day: "Mon", delay: base[0] },
+    { day: "Tue", delay: base[1] },
+    { day: "Wed", delay: base[2] },
+    { day: "Thu", delay: base[3] },
+    { day: "Fri", delay: base[4] },
+    { day: "Sat", delay: base[5] },
+  ]
+}
+</file>
+
+<file path="apps/web/components/DownloadData.tsx">
+"use client"
+export default function DownloadData() {
+  const downloadCSV = () => {
+    const link = document.createElement("a")
+    link.href = "/sample-data/merchant_settlement_sample.csv"
+    link.download = "merchant_settlement_sample.csv"
+    link.click()
+  }
+
+  return (
+    <div className="bg-[#111827] p-6 rounded-2xl border border-gray-800 mt-6">
+      <h2 className="text-white text-xl font-bold mb-3">
+        Download Sample Data
+      </h2>
+
+      <p className="text-gray-400 mb-4">
+        Export merchant settlement dataset for analysis.
+      </p>
+
+      <button
+        onClick={downloadCSV}
+        className="bg-blue-600 px-4 py-2 rounded-lg"
+      >
+        Download CSV
+      </button>
+    </div>
+  )
+}
+</file>
+
+<file path="apps/web/components/Filters.tsx">
+"use client"
+
+export default function Filters({ filters, setFilters }: any) {
+  return (
+    <div className="bg-[#111827] p-6 rounded-2xl border border-gray-800 mt-6">
+
+      <h2 className="text-white text-xl font-bold mb-4">
+        Filters
+      </h2>
+
+      {/* Merchant */}
+      <div className="mb-4">
+        <p className="text-gray-400 text-sm">Merchant</p>
+        <select
+          value={filters.merchant}
+          onChange={(e) =>
+            setFilters({ ...filters, merchant: e.target.value })
+          }
+          className="w-full p-2 bg-[#1F2937] text-white rounded"
+        >
+          <option>All</option>
+          <option>Amazon</option>
+          <option>Flipkart</option>
+          <option>Shopify</option>
+        </select>
+      </div>
+
+      {/* Processor */}
+      <div className="mb-4">
+        <p className="text-gray-400 text-sm">Processor</p>
+        <select
+          value={filters.processor}
+          onChange={(e) =>
+            setFilters({ ...filters, processor: e.target.value })
+          }
+          className="w-full p-2 bg-[#1F2937] text-white rounded"
+        >
+          <option>All</option>
+          <option>Stripe</option>
+          <option>Razorpay</option>
+          <option>Adyen</option>
+        </select>
+      </div>
+
+      {/* Region */}
+      <div>
+        <p className="text-gray-400 text-sm">Region</p>
+        <select
+          value={filters.region}
+          onChange={(e) =>
+            setFilters({ ...filters, region: e.target.value })
+          }
+          className="w-full p-2 bg-[#1F2937] text-white rounded"
+        >
+          <option>All</option>
+          <option>India</option>
+          <option>US</option>
+          <option>EU</option>
+        </select>
+      </div>
+
+    </div>
+  )
+}
+</file>
+
+<file path="apps/web/components/Header.tsx">
+export default function Header() {
+  return (
+    <div className="bg-[#111827] p-6 rounded-2xl shadow-lg border border-gray-800">
+      <h1 className="text-4xl font-bold text-white">
+        Merchant Settlement Waterfall
+      </h1>
+
+      <p className="text-gray-400 mt-3 text-lg">
+        Track how gross card sales become net merchant deposits across the payment rail.
+      </p>
+
+      <div className="grid grid-cols-4 gap-4 mt-6">
+        <div className="bg-[#1F2937] p-4 rounded-xl">
+          <p className="text-gray-400 text-sm">Gross Sales</p>
+          <h2 className="text-2xl font-bold">$125,000</h2>
+        </div>
+
+        <div className="bg-[#1F2937] p-4 rounded-xl">
+          <p className="text-gray-400 text-sm">Fees</p>
+          <h2 className="text-2xl font-bold text-red-400">-$4,700</h2>
+        </div>
+
+        <div className="bg-[#1F2937] p-4 rounded-xl">
+          <p className="text-gray-400 text-sm">Reserve Hold</p>
+          <h2 className="text-2xl font-bold text-yellow-400">-$5,000</h2>
+        </div>
+
+        <div className="bg-[#1F2937] p-4 rounded-xl">
+          <p className="text-gray-400 text-sm">Net Settlement</p>
+          <h2 className="text-2xl font-bold text-green-400">$114,850</h2>
+        </div>
+      </div>
+    </div>
+  )
+}
+</file>
+
+<file path="apps/web/components/PricingScenario.tsx">
+"use client"
+
+import { useState } from "react"
+
+const scenarios = {
+  flat: {
+    fees: "$4,700",
+    reserve: "$5,000",
+    net: "$114,850",
+  },
+
+  interchange: {
+    fees: "$3,900",
+    reserve: "$4,200",
+    net: "$116,900",
+  },
+
+  tiered: {
+    fees: "$5,600",
+    reserve: "$6,100",
+    net: "$113,300",
+  },
+}
+
+export default function PricingScenario() {
+  const [selected, setSelected] = useState("flat")
+
+  const current =
+    scenarios[selected as keyof typeof scenarios]
+
+  return (
+    <div className="bg-[#111827] p-6 rounded-2xl border border-gray-800 mt-6">
+      <h2 className="text-2xl font-bold text-white mb-4">
+        Pricing Scenario Simulator
+      </h2>
+
+      <div className="flex gap-4 mb-6">
+        <button
+          onClick={() => setSelected("flat")}
+          className="bg-blue-600 px-4 py-2 rounded-lg"
+        >
+          Flat Rate
+        </button>
+
+        <button
+          onClick={() => setSelected("interchange")}
+          className="bg-gray-700 px-4 py-2 rounded-lg"
+        >
+          Interchange+
+        </button>
+
+        <button
+          onClick={() => setSelected("tiered")}
+          className="bg-gray-700 px-4 py-2 rounded-lg"
+        >
+          Tiered
+        </button>
+      </div>
+
+      <div className="grid grid-cols-3 gap-4">
+        <div className="bg-[#1F2937] p-4 rounded-xl">
+          <p className="text-gray-400 text-sm">Fees</p>
+          <h3 className="text-2xl font-bold text-red-400">
+            {current.fees}
+          </h3>
+        </div>
+
+        <div className="bg-[#1F2937] p-4 rounded-xl">
+          <p className="text-gray-400 text-sm">Reserve Hold</p>
+          <h3 className="text-2xl font-bold text-yellow-400">
+            {current.reserve}
+          </h3>
+        </div>
+
+        <div className="bg-[#1F2937] p-4 rounded-xl">
+          <p className="text-gray-400 text-sm">Net Settlement</p>
+          <h3 className="text-2xl font-bold text-green-400">
+            {current.net}
+          </h3>
+        </div>
+      </div>
+    </div>
+  )
+}
+</file>
+
+<file path="apps/web/components/RailControllers.tsx">
+export default function RailControllers() {
+  return (
+    <div className="bg-[#111827] p-6 rounded-2xl border border-gray-800 mt-6">
+      <h2 className="text-2xl font-bold text-white mb-4">
+        Who Controls the Rail
+      </h2>
+
+      <div className="space-y-4 text-gray-300">
+        <div>
+          <h3 className="font-semibold text-white">Card Networks</h3>
+          <p>Visa, Mastercard</p>
+        </div>
+
+        <div>
+          <h3 className="font-semibold text-white">Regulators</h3>
+          <p>Federal Reserve, CFPB</p>
+        </div>
+
+        <div>
+          <h3 className="font-semibold text-white">Settlement Flow</h3>
+          <p>
+            Networks → Acquirers → Processors → Settlement Banks → Merchants
+          </p>
+        </div>
+      </div>
+    </div>
+  )
+}
+</file>
+
+<file path="apps/web/components/ReserveHoldPanel.tsx">
+export default function ReserveHoldPanel() {
+  return (
+    <div className="bg-[#111827] border border-gray-800 rounded-2xl p-6 mt-6">
+      <h2 className="text-2xl font-bold text-white mb-4">
+        Reserve Hold Analytics
+      </h2>
+
+      <div className="space-y-4">
+        <div>
+          <p className="text-gray-400">Current Reserve Hold</p>
+          <p className="text-yellow-400 text-3xl font-bold">
+            $5,000
+          </p>
+        </div>
+
+        <div>
+          <p className="text-gray-400">Reserve Rate</p>
+          <p className="text-white text-xl">
+            4%
+          </p>
+        </div>
+
+        <div>
+          <p className="text-gray-400">Estimated Release Time</p>
+          <p className="text-white text-xl">
+            14 Days
+          </p>
+        </div>
+
+        <div>
+          <p className="text-gray-400">Risk Trigger</p>
+          <p className="text-red-400 text-xl">
+            High Chargeback Volume
+          </p>
+        </div>
+      </div>
+    </div>
+  )
+}
+</file>
+
+<file path="apps/web/components/SettlementDelayChart.tsx">
+"use client"
+
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer,
+  CartesianGrid,
+} from "recharts"
+
+import { getDelayData } from "./dataEngine"
+
+export default function SettlementDelayChart({ filters }: any) {
+  const data = getDelayData(filters)
+
+  return (
+    <div className="bg-[#111827] p-6 rounded-2xl border border-gray-800 mt-6">
+
+      <h2 className="text-2xl font-bold text-white mb-4">
+        Settlement Delay Analytics
+      </h2>
+
+      <p className="text-gray-400 mb-6">
+        Average merchant settlement delay (hours)
+      </p>
+
+      <div className="h-[350px]">
+        <ResponsiveContainer width="100%" height="100%">
+          <LineChart data={data}>
+            <CartesianGrid stroke="#1F2937" />
+            <XAxis dataKey="day" stroke="#9CA3AF" />
+            <YAxis stroke="#9CA3AF" />
+            <Tooltip />
+
+            <Line
+              type="monotone"
+              dataKey="delay"
+              stroke="#3B82F6"
+              strokeWidth={3}
+            />
+          </LineChart>
+        </ResponsiveContainer>
+      </div>
+
+    </div>
+  )
+}
+</file>
+
+<file path="apps/web/components/SettlementWaterfall.tsx">
+"use client"
+
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer,
+  Cell,
+} from "recharts"
+
+import { getSettlementData } from "./dataEngine"
+
+export default function SettlementWaterfall({ filters }: any) {
+  const dataValues = getSettlementData(filters)
+
+  const data = [
+    { name: "Gross Sales", value: dataValues.gross },
+    { name: "Fees", value: -dataValues.fees },
+    { name: "Reserve Hold", value: -dataValues.reserve },
+    { name: "Net Settlement", value: dataValues.net },
+  ]
+
+  const colors = ["#3B82F6", "#EF4444", "#EAB308", "#22C55E"]
+
+  return (
+    <div className="bg-[#111827] p-6 rounded-2xl border border-gray-800 mt-6">
+
+      <h2 className="text-2xl font-bold text-white mb-4">
+        Sales → Net Settlement Waterfall
+      </h2>
+
+      <div className="h-[400px]">
+        <ResponsiveContainer width="100%" height="100%">
+          <BarChart data={data}>
+            <XAxis dataKey="name" stroke="#9CA3AF" />
+            <YAxis stroke="#9CA3AF" />
+            <Tooltip />
+
+            <Bar dataKey="value">
+              {data.map((_, index) => (
+                <Cell key={index} fill={colors[index]} />
+              ))}
+            </Bar>
+
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
+
+    </div>
+  )
+}
+</file>
+
+<file path="apps/web/components/WhyThisMatters.tsx">
+export default function WhyThisMatters() {
+  return (
+    <div className="bg-[#111827] p-6 rounded-2xl border border-gray-800">
+      <h2 className="text-2xl font-bold text-white mb-4">
+        Why This Matters
+      </h2>
+
+      <div className="space-y-4 text-gray-300">
+        <p>
+          Settlement delays directly impact merchant cash flow and working capital.
+        </p>
+
+        <p>
+          Reserve holds reduce liquidity and are often difficult for merchants to predict.
+        </p>
+
+        <p>
+          Understanding payment rail economics helps operators reduce hidden costs.
+        </p>
+
+        <p>
+          Visibility into settlement timing improves operational intelligence and risk management.
+        </p>
+      </div>
+    </div>
+  )
+}
+</file>
+
+<file path="apps/web/eslint.config.mjs">
+import { defineConfig, globalIgnores } from "eslint/config";
+import nextVitals from "eslint-config-next/core-web-vitals";
+import nextTs from "eslint-config-next/typescript";
+
+const eslintConfig = defineConfig([
+  ...nextVitals,
+  ...nextTs,
+  // Override default ignores of eslint-config-next.
+  globalIgnores([
+    // Default ignores of eslint-config-next:
+    ".next/**",
+    "out/**",
+    "build/**",
+    "next-env.d.ts",
+  ]),
+]);
+
+export default eslintConfig;
+</file>
+
+<file path="apps/web/package.json">
+{
+  "name": "web",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint"
+  },
+  "dependencies": {
+    "next": "16.2.6",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "recharts": "^3.8.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.2.6",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}
+</file>
+
+<file path="apps/web/postcss.config.mjs">
+const config = {
+  plugins: {
+    "@tailwindcss/postcss": {},
+  },
+};
+
+export default config;
+</file>
+
+<file path="apps/web/public/file.svg">
+<svg fill="none" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M14.5 13.5V5.41a1 1 0 0 0-.3-.7L9.8.29A1 1 0 0 0 9.08 0H1.5v13.5A2.5 2.5 0 0 0 4 16h8a2.5 2.5 0 0 0 2.5-2.5m-1.5 0v-7H8v-5H3v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1M9.5 5V2.12L12.38 5zM5.13 5h-.62v1.25h2.12V5zm-.62 3h7.12v1.25H4.5zm.62 3h-.62v1.25h7.12V11z" clip-rule="evenodd" fill="#666" fill-rule="evenodd"/></svg>
+</file>
+
+<file path="apps/web/public/globe.svg">
+<svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><g clip-path="url(#a)"><path fill-rule="evenodd" clip-rule="evenodd" d="M10.27 14.1a6.5 6.5 0 0 0 3.67-3.45q-1.24.21-2.7.34-.31 1.83-.97 3.1M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m.48-1.52a7 7 0 0 1-.96 0H7.5a4 4 0 0 1-.84-1.32q-.38-.89-.63-2.08a40 40 0 0 0 3.92 0q-.25 1.2-.63 2.08a4 4 0 0 1-.84 1.31zm2.94-4.76q1.66-.15 2.95-.43a7 7 0 0 0 0-2.58q-1.3-.27-2.95-.43a18 18 0 0 1 0 3.44m-1.27-3.54a17 17 0 0 1 0 3.64 39 39 0 0 1-4.3 0 17 17 0 0 1 0-3.64 39 39 0 0 1 4.3 0m1.1-1.17q1.45.13 2.69.34a6.5 6.5 0 0 0-3.67-3.44q.65 1.26.98 3.1M8.48 1.5l.01.02q.41.37.84 1.31.38.89.63 2.08a40 40 0 0 0-3.92 0q.25-1.2.63-2.08a4 4 0 0 1 .85-1.32 7 7 0 0 1 .96 0m-2.75.4a6.5 6.5 0 0 0-3.67 3.44 29 29 0 0 1 2.7-.34q.31-1.83.97-3.1M4.58 6.28q-1.66.16-2.95.43a7 7 0 0 0 0 2.58q1.3.27 2.95.43a18 18 0 0 1 0-3.44m.17 4.71q-1.45-.12-2.69-.34a6.5 6.5 0 0 0 3.67 3.44q-.65-1.27-.98-3.1" fill="#666"/></g><defs><clipPath id="a"><path fill="#fff" d="M0 0h16v16H0z"/></clipPath></defs></svg>
+</file>
+
+<file path="apps/web/public/next.svg">
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 394 80"><path fill="#000" d="M262 0h68.5v12.7h-27.2v66.6h-13.6V12.7H262V0ZM149 0v12.7H94v20.4h44.3v12.6H94v21h55v12.6H80.5V0h68.7zm34.3 0h-17.8l63.8 79.4h17.9l-32-39.7 32-39.6h-17.9l-23 28.6-23-28.6zm18.3 56.7-9-11-27.1 33.7h17.8l18.3-22.7z"/><path fill="#000" d="M81 79.3 17 0H0v79.3h13.6V17l50.2 62.3H81Zm252.6-.4c-1 0-1.8-.4-2.5-1s-1.1-1.6-1.1-2.6.3-1.8 1-2.5 1.6-1 2.6-1 1.8.3 2.5 1a3.4 3.4 0 0 1 .6 4.3 3.7 3.7 0 0 1-3 1.8zm23.2-33.5h6v23.3c0 2.1-.4 4-1.3 5.5a9.1 9.1 0 0 1-3.8 3.5c-1.6.8-3.5 1.3-5.7 1.3-2 0-3.7-.4-5.3-1s-2.8-1.8-3.7-3.2c-.9-1.3-1.4-3-1.4-5h6c.1.8.3 1.6.7 2.2s1 1.2 1.6 1.5c.7.4 1.5.5 2.4.5 1 0 1.8-.2 2.4-.6a4 4 0 0 0 1.6-1.8c.3-.8.5-1.8.5-3V45.5zm30.9 9.1a4.4 4.4 0 0 0-2-3.3 7.5 7.5 0 0 0-4.3-1.1c-1.3 0-2.4.2-3.3.5-.9.4-1.6 1-2 1.6a3.5 3.5 0 0 0-.3 4c.3.5.7.9 1.3 1.2l1.8 1 2 .5 3.2.8c1.3.3 2.5.7 3.7 1.2a13 13 0 0 1 3.2 1.8 8.1 8.1 0 0 1 3 6.5c0 2-.5 3.7-1.5 5.1a10 10 0 0 1-4.4 3.5c-1.8.8-4.1 1.2-6.8 1.2-2.6 0-4.9-.4-6.8-1.2-2-.8-3.4-2-4.5-3.5a10 10 0 0 1-1.7-5.6h6a5 5 0 0 0 3.5 4.6c1 .4 2.2.6 3.4.6 1.3 0 2.5-.2 3.5-.6 1-.4 1.8-1 2.4-1.7a4 4 0 0 0 .8-2.4c0-.9-.2-1.6-.7-2.2a11 11 0 0 0-2.1-1.4l-3.2-1-3.8-1c-2.8-.7-5-1.7-6.6-3.2a7.2 7.2 0 0 1-2.4-5.7 8 8 0 0 1 1.7-5 10 10 0 0 1 4.3-3.5c2-.8 4-1.2 6.4-1.2 2.3 0 4.4.4 6.2 1.2 1.8.8 3.2 2 4.3 3.4 1 1.4 1.5 3 1.5 5h-5.8z"/></svg>
+</file>
+
+<file path="apps/web/public/sample-data/merchant_settlement_sample.csv">
+merchant_id,gross_sales,fees,reserve,net_settlement,delay_hours
+M001,125000,4700,5000,114850,36
+M002,98000,3200,4000,90800,24
+M003,150000,5200,7000,137800,48
+M004,76000,2100,3000,70900,18
+</file>
+
+<file path="apps/web/public/vercel.svg">
+<svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1155 1000"><path d="m577.3 0 577.4 1000H0z" fill="#fff"/></svg>
+</file>
+
+<file path="apps/web/public/window.svg">
+<svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fill-rule="evenodd" clip-rule="evenodd" d="M1.5 2.5h13v10a1 1 0 0 1-1 1h-11a1 1 0 0 1-1-1zM0 1h16v11.5a2.5 2.5 0 0 1-2.5 2.5h-11A2.5 2.5 0 0 1 0 12.5zm3.75 4.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5M7 4.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0m1.75.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5" fill="#666"/></svg>
+</file>
+
+<file path="apps/web/README.md">
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+
+## Getting Started
+
+First, run the development server:
+
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+
+## Learn More
+
+To learn more about Next.js, take a look at the following resources:
+
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+</file>
+
+<file path="apps/web/tsconfig.json">
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "react-jsx",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "@/*": ["./*"]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    ".next/dev/types/**/*.ts",
+    "**/*.mts"
+  ],
+  "exclude": ["node_modules"]
+}
+</file>
+
+<file path="apps/web/app/page.tsx">
+"use client"
+
+import { useState } from "react"
+
+import ReserveHoldPanel from "@/components/ReserveHoldPanel"
+import SettlementWaterfall from "@/components/SettlementWaterfall"
+import SettlementDelayChart from "@/components/SettlementDelayChart"
+import PricingScenario from "@/components/PricingScenario"
+import Filters from "@/components/Filters"
+
+export default function Home() {
+  const [filters, setFilters] = useState({
+    merchant: "All",
+    processor: "All",
+    region: "All",
+  })
+
+  return (
+    <div className="min-h-screen bg-[#030712] text-white p-6">
+
+      {/* HEADER */}
+      <h1 className="text-5xl font-bold mb-3">
+        Merchant Settlement Waterfall
+      </h1>
+
+      <p className="text-gray-400 mb-8 text-lg">
+        Track how gross card sales become net merchant deposits
+        across the payment rail ecosystem.
+      </p>
+
+      {/* MAIN GRID */}
+      <div className="grid grid-cols-1 lg:grid-cols-10 gap-6">
+
+        {/* LEFT SIDE — MAIN ANALYTICS */}
+        <div className="lg:col-span-7 space-y-6">
+
+          {/* KPI CARDS */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+
+            <div className="bg-[#111827] border border-gray-800 rounded-2xl p-5">
+              <p className="text-gray-400 text-sm mb-2">
+                Gross Sales
+              </p>
+
+              <h2 className="text-3xl font-bold text-blue-400">
+                $125,000
+              </h2>
+            </div>
+
+            <div className="bg-[#111827] border border-gray-800 rounded-2xl p-5">
+              <p className="text-gray-400 text-sm mb-2">
+                Fees
+              </p>
+
+              <h2 className="text-3xl font-bold text-red-400">
+                -$4,700
+              </h2>
+            </div>
+
+            <div className="bg-[#111827] border border-gray-800 rounded-2xl p-5">
+              <p className="text-gray-400 text-sm mb-2">
+                Reserve Hold
+              </p>
+
+              <h2 className="text-3xl font-bold text-yellow-400">
+                -$5,000
+              </h2>
+            </div>
+
+            <div className="bg-[#111827] border border-gray-800 rounded-2xl p-5">
+              <p className="text-gray-400 text-sm mb-2">
+                Net Settlement
+              </p>
+
+              <h2 className="text-3xl font-bold text-green-400">
+                $114,850
+              </h2>
+            </div>
+
+          </div>
+
+          {/* WATERFALL CHART */}
+          <SettlementWaterfall />
+
+          {/* DELAY CHART */}
+          <SettlementDelayChart />
+
+          {/* PRICING SCENARIO */}
+          <PricingScenario />
+
+        </div>
+
+        {/* RIGHT SIDEBAR */}
+        <div className="lg:col-span-3 space-y-6">
+
+          {/* WHY THIS MATTERS */}
+          <div className="bg-[#111827] border border-gray-800 rounded-2xl p-6">
+
+            <h2 className="text-2xl font-bold mb-4">
+              Why This Matters
+            </h2>
+
+            <ul className="space-y-4 text-gray-300">
+
+              <li>
+                Settlement delays directly impact merchant cash flow.
+              </li>
+
+              <li>
+                Reserve holds reduce liquidity visibility.
+              </li>
+
+              <li>
+                Pricing opacity increases operational costs.
+              </li>
+
+              <li>
+                Understanding payment rail economics improves planning.
+              </li>
+
+            </ul>
+
+          </div>
+
+          {/* WHO CONTROLS THE RAIL */}
+          <div className="bg-[#111827] border border-gray-800 rounded-2xl p-6">
+
+            <h2 className="text-2xl font-bold mb-4">
+              Who Controls the Rail
+            </h2>
+
+            <div className="space-y-5 text-gray-300">
+
+              <div>
+                <p className="font-semibold text-white mb-1">
+                  Card Networks
+                </p>
+
+                <p>
+                  Visa, Mastercard
+                </p>
+              </div>
+
+              <div>
+                <p className="font-semibold text-white mb-1">
+                  Regulators
+                </p>
+
+                <p>
+                  Federal Reserve, CFPB
+                </p>
+              </div>
+
+              <div>
+                <p className="font-semibold text-white mb-1">
+                  Settlement Flow
+                </p>
+
+                <p>
+                  Networks → Acquirers → Processors → Banks → Merchants
+                </p>
+              </div>
+
+            </div>
+
+          </div>
+
+          {/* FILTERS */}
+          <div className="bg-[#111827] border border-gray-800 rounded-2xl p-6">
+
+            <h2 className="text-2xl font-bold mb-4">
+              Filters
+            </h2>
+
+            <Filters
+              filters={filters}
+              setFilters={setFilters}
+            />
+
+          </div>
+
+          {/* RESERVE HOLD PANEL */}
+          <ReserveHoldPanel />
+
+        </div>
+
+      </div>
+
+    </div>
+  )
+}
+</file>
+
+<file path="apps/web/next.config.ts">
+import type { NextConfig } from "next";
+
+const nextConfig: NextConfig = {
+  /* config options here */
+};
+
+export default nextConfig;
+</file>
+
+<file path="README.md">
+# 💳 Merchant Settlement Waterfall — Real Rails Intelligence PoC
+
+A production-style intelligence dashboard that simulates how merchant payments flow through the global payments rail — from gross sales → fees → reserves → net settlement.
+
+Built as part of the **Real Rails Intelligence Library PoC framework**.
+
+---
+
+## 🚀 Live Features
+
+### 📊 Settlement Waterfall Engine
+- Gross Sales → Fees → Reserve Hold → Net Settlement
+- Dynamic recalculation based on filters
+
+### ⏱ Settlement Delay Analytics
+- Weekly settlement delay simulation
+- Processor & merchant impact modeling
+
+### 🧠 Pricing Scenario Simulator
+- Flat Rate / Interchange+ / Tiered models
+- Real-time financial impact visualization
+
+### 🔍 Intelligent Filters
+- Merchant selection (Amazon, Flipkart, Shopify)
+- Processor selection (Stripe, Razorpay, Adyen)
+- Region-based simulation hooks
+
+### 📦 Downloadable Dataset
+- CSV export for analysis
+- Synthetic merchant settlement dataset
+
+---
+
+## 🏗 Architecture
+
+## 🔄 System Flow
+
+Gross Sales
+  ↓
+Card Networks (Visa/Mastercard)
+  ↓
+Payment Processor (Stripe/Razorpay/Adyen)
+  ↓
+Acquirer Bank
+  ↓
+Reserve + Fees Applied
+  ↓
+Net Settlement to Merchant
+
+
+---
+
+## 🧠 Data Model
+
+Since real-time settlement data is not publicly available:
+
+- Uses **synthetic merchant batches**
+- Simulates processor pricing behavior
+- Models reserve + delay logic
+
+Sources conceptually aligned with:
+- CFPB (Consumer Financial Protection Bureau)
+- Federal Reserve Payments Study
+
+---
+
+## 🧩 Key Concepts Explained
+
+### 💰 Payment Rail
+The infrastructure that moves money from customer → merchant.
+
+### 🏦 Who Controls the Rail
+- Card Networks (Visa, Mastercard)
+- Regulators (Federal Reserve, CFPB)
+- Processors (Stripe, Razorpay, Adyen)
+
+### ⏳ Settlement Delay
+Time between transaction authorization and merchant payout.
+
+---
+
+## 📂 Project Structure
+
+
+---
+
+## ⚙️ Tech Stack
+
+- Next.js 14
+- TypeScript
+- Tailwind CSS
+- Recharts
+- React Hooks
+
+---
+
+## 🎯 What This Project Demonstrates
+
+- Payment rail intelligence modeling
+- Financial data simulation
+- Dashboard engineering
+- UI/UX for fintech systems
+- Data-driven decision interfaces
+
+---
+
+## 📸 Screenshots
+
+Add screenshots in:
+</file>
+
+</files>

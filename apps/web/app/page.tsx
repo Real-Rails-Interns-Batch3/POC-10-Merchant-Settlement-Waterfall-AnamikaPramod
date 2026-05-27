@@ -31,7 +31,7 @@ export default function Home() {
       {/* MAIN GRID */}
       <div className="grid grid-cols-1 lg:grid-cols-10 gap-6">
 
-        {/* LEFT SIDE — ANALYTICS */}
+        {/* LEFT SIDE — MAIN ANALYTICS */}
         <div className="lg:col-span-7 space-y-6">
 
           {/* KPI CARDS */}
@@ -79,19 +79,19 @@ export default function Home() {
 
           </div>
 
-          {/* WATERFALL */}
+          {/* WATERFALL CHART */}
           <SettlementWaterfall />
 
           {/* DELAY CHART */}
           <SettlementDelayChart />
 
-          {/* PRICING */}
+          {/* PRICING SCENARIO */}
           <PricingScenario />
 
         </div>
 
-        {/* RIGHT SIDEBAR — INSIGHTS */}
-        <div className="lg:col-span-3 space-y-6 sticky top-6 h-fit">
+        {/* RIGHT SIDEBAR */}
+        <div className="lg:col-span-3 space-y-6">
 
           {/* WHY THIS MATTERS */}
           <div className="bg-[#111827] border border-gray-800 rounded-2xl p-6">
@@ -179,7 +179,7 @@ export default function Home() {
 
           </div>
 
-          {/* RESERVE HOLD */}
+          {/* RESERVE HOLD PANEL */}
           <ReserveHoldPanel />
 
         </div>
