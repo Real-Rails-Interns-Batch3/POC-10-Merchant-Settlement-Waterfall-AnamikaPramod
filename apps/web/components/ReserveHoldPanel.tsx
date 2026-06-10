@@ -1,39 +1,26 @@
-export default function ReserveHoldPanel() {
+"use client";
+
+export default function ReserveHoldPanel({ waterfallData }: any) {
+  if (!waterfallData) return null;
+
   return (
-    <div className="bg-[#111827] border border-gray-800 rounded-2xl p-6 mt-6">
-      <h2 className="text-2xl font-bold text-white mb-4">
+    <div className="bg-[#111827] p-6 rounded-2xl border border-gray-800">
+      <h2 className="text-xl font-bold mb-4">
         Reserve Hold Analytics
       </h2>
 
-      <div className="space-y-4">
-        <div>
-          <p className="text-gray-400">Current Reserve Hold</p>
-          <p className="text-yellow-400 text-3xl font-bold">
-            $5,000
-          </p>
-        </div>
+      <div>Current Reserve Hold</div>
+      <div className="text-2xl text-yellow-400">
+        ${waterfallData.reserve?.toLocaleString()}
+      </div>
 
-        <div>
-          <p className="text-gray-400">Reserve Rate</p>
-          <p className="text-white text-xl">
-            4%
-          </p>
-        </div>
+      <div className="mt-4 text-gray-400">
+        Reserve Rate: 4%
+      </div>
 
-        <div>
-          <p className="text-gray-400">Estimated Release Time</p>
-          <p className="text-white text-xl">
-            14 Days
-          </p>
-        </div>
-
-        <div>
-          <p className="text-gray-400">Risk Trigger</p>
-          <p className="text-red-400 text-xl">
-            High Chargeback Volume
-          </p>
-        </div>
+      <div className="text-gray-400">
+        Estimated Release: 14 days
       </div>
     </div>
-  )
+  );
 }

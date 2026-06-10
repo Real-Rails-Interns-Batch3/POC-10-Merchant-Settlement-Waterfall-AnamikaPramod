@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import {
   LineChart,
@@ -7,43 +7,27 @@ import {
   YAxis,
   Tooltip,
   ResponsiveContainer,
-  CartesianGrid,
-} from "recharts"
+} from "recharts";
 
-import { getDelayData } from "./dataEngine"
-
-export default function SettlementDelayChart({ filters }: any) {
-  const data = getDelayData(filters)
+export default function SettlementDelayChart({ data }: any) {
+  if (!data || !Array.isArray(data)) return null;
 
   return (
-    <div className="bg-[#111827] p-6 rounded-2xl border border-gray-800 mt-6">
-
-      <h2 className="text-2xl font-bold text-white mb-4">
+    <div className="bg-[#111827] p-6 rounded-2xl border border-gray-800">
+      <h2 className="text-xl font-bold mb-4">
         Settlement Delay Analytics
       </h2>
 
-      <p className="text-gray-400 mb-6">
-        Average merchant settlement delay (hours)
-      </p>
-
-      <div className="h-[350px]">
-        <ResponsiveContainer width="100%" height="100%">
+      <div style={{ width: "100%", height: 300 }}>
+        <ResponsiveContainer>
           <LineChart data={data}>
-            <CartesianGrid stroke="#1F2937" />
-            <XAxis dataKey="day" stroke="#9CA3AF" />
-            <YAxis stroke="#9CA3AF" />
+            <XAxis dataKey="day" />
+            <YAxis />
             <Tooltip />
-
-            <Line
-              type="monotone"
-              dataKey="delay"
-              stroke="#3B82F6"
-              strokeWidth={3}
-            />
+            <Line type="monotone" dataKey="delay" stroke="#60A5FA" />
           </LineChart>
         </ResponsiveContainer>
       </div>
-
     </div>
-  )
+  );
 }

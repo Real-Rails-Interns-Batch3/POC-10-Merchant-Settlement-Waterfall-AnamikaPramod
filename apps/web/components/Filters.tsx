@@ -1,64 +1,52 @@
-"use client"
+"use client";
 
 export default function Filters({ filters, setFilters }: any) {
   return (
-    <div className="bg-[#111827] p-6 rounded-2xl border border-gray-800 mt-6">
+    <div>
+      <h1 className="text-red-500 text-2xl mb-4">
+        FILTER TEST
+      </h1>
 
-      <h2 className="text-white text-xl font-bold mb-4">
-        Filters
-      </h2>
+      <p className="mb-2">
+        Merchant: {filters.merchant}
+      </p>
 
-      {/* Merchant */}
-      <div className="mb-4">
-        <p className="text-gray-400 text-sm">Merchant</p>
-        <select
-          value={filters.merchant}
-          onChange={(e) =>
-            setFilters({ ...filters, merchant: e.target.value })
-          }
-          className="w-full p-2 bg-[#1F2937] text-white rounded"
-        >
-          <option>All</option>
-          <option>Amazon</option>
-          <option>Flipkart</option>
-          <option>Shopify</option>
-        </select>
-      </div>
+      <p className="mb-4">
+        Processor: {filters.processor}
+      </p>
 
-      {/* Processor */}
-      <div className="mb-4">
-        <p className="text-gray-400 text-sm">Processor</p>
-        <select
-          value={filters.processor}
-          onChange={(e) =>
-            setFilters({ ...filters, processor: e.target.value })
-          }
-          className="w-full p-2 bg-[#1F2937] text-white rounded"
-        >
-          <option>All</option>
-          <option>Stripe</option>
-          <option>Razorpay</option>
-          <option>Adyen</option>
-        </select>
-      </div>
+      <select
+        value={filters.merchant}
+        onChange={(e) => {
+          console.log("Merchant changed:", e.target.value);
 
-      {/* Region */}
-      <div>
-        <p className="text-gray-400 text-sm">Region</p>
-        <select
-          value={filters.region}
-          onChange={(e) =>
-            setFilters({ ...filters, region: e.target.value })
-          }
-          className="w-full p-2 bg-[#1F2937] text-white rounded"
-        >
-          <option>All</option>
-          <option>India</option>
-          <option>US</option>
-          <option>EU</option>
-        </select>
-      </div>
+          setFilters({
+            ...filters,
+            merchant: e.target.value,
+          });
+        }}
+        className="w-full p-2 bg-gray-700 text-white mb-4"
+      >
+        <option value="Retail">Retail</option>
+        <option value="Healthcare">Healthcare</option>
+        <option value="Restaurant">Restaurant</option>
+      </select>
 
+      <select
+        value={filters.processor}
+        onChange={(e) => {
+          console.log("Processor changed:", e.target.value);
+
+          setFilters({
+            ...filters,
+            processor: e.target.value,
+          });
+        }}
+        className="w-full p-2 bg-gray-700 text-white"
+      >
+        <option value="Stripe">Stripe</option>
+        <option value="Adyen">Adyen</option>
+      </select>
     </div>
-  )
+  );
 }

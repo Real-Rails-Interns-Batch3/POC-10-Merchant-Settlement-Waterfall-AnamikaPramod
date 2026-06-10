@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import {
   BarChart,
@@ -8,46 +8,39 @@ import {
   Tooltip,
   ResponsiveContainer,
   Cell,
-} from "recharts"
+} from "recharts";
 
-import { getSettlementData } from "./dataEngine"
+export default function SettlementWaterfall({ data }: any) {
+  if (!data) return null;
 
-export default function SettlementWaterfall({ filters }: any) {
-  const dataValues = getSettlementData(filters)
+  const chartData = [
+    { name: "Gross Sales", value: data.gross },
+    { name: "Fees", value: -data.fees },
+    { name: "Reserve Hold", value: -data.reserve },
+    { name: "Net Settlement", value: data.net },
+  ];
 
-  const data = [
-    { name: "Gross Sales", value: dataValues.gross },
-    { name: "Fees", value: -dataValues.fees },
-    { name: "Reserve Hold", value: -dataValues.reserve },
-    { name: "Net Settlement", value: dataValues.net },
-  ]
-
-  const colors = ["#3B82F6", "#EF4444", "#EAB308", "#22C55E"]
+  const colors = ["#3B82F6", "#EF4444", "#EAB308", "#22C55E"];
 
   return (
-    <div className="bg-[#111827] p-6 rounded-2xl border border-gray-800 mt-6">
+    <div className="bg-[#111827] p-6 rounded-2xl border border-gray-800">
+      <h2 className="text-xl font-bold mb-4">Waterfall</h2>
 
-      <h2 className="text-2xl font-bold text-white mb-4">
-        Sales → Net Settlement Waterfall
-      </h2>
-
-      <div className="h-[400px]">
-        <ResponsiveContainer width="100%" height="100%">
-          <BarChart data={data}>
-            <XAxis dataKey="name" stroke="#9CA3AF" />
-            <YAxis stroke="#9CA3AF" />
+      <div style={{ width: "100%", height: 300 }}>
+        <ResponsiveContainer>
+          <BarChart data={chartData}>
+            <XAxis dataKey="name" />
+            <YAxis />
             <Tooltip />
 
             <Bar dataKey="value">
-              {data.map((_, index) => (
-                <Cell key={index} fill={colors[index]} />
+              {chartData.map((_, i) => (
+                <Cell key={i} fill={colors[i]} />
               ))}
             </Bar>
-
           </BarChart>
         </ResponsiveContainer>
       </div>
-
     </div>
-  )
+  );
 }
