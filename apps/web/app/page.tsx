@@ -56,6 +56,7 @@ export default function Home() {
 
         {/* LEFT */}
         <div className="lg:col-span-7 space-y-6">
+          
 
           {/* KPI CARDS */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -94,7 +95,7 @@ export default function Home() {
           <SettlementWaterfall data={waterfallData} />
           <SettlementDelayChart data={delayData} />
           <PricingScenario data={waterfallData} />
-
+          <ReserveHoldPanel data={waterfallData} />
         </div>
 
         {/* RIGHT */}
@@ -121,7 +122,7 @@ export default function Home() {
 
 
 
-          <ReserveHoldPanel data={waterfallData} />
+          
 
         </div>
       </div>
