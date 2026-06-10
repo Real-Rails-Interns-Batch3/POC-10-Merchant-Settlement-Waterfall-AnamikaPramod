@@ -31,7 +31,15 @@ export default function SettlementWaterfall({ data }: any) {
           <BarChart data={chartData}>
             <XAxis dataKey="name" />
             <YAxis />
-            <Tooltip />
+            <Tooltip
+  contentStyle={{
+    backgroundColor: "#111827",
+    border: "1px solid #374151",
+    borderRadius: "8px",
+    color: "#fff",
+  }}
+  formatter={(value: any) => [`$${value}`, "Amount"]}
+/>
 
             <Bar dataKey="value">
               {chartData.map((_, i) => (

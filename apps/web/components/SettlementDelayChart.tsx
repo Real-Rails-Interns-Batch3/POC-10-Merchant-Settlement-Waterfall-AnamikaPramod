@@ -23,7 +23,15 @@ export default function SettlementDelayChart({ data }: any) {
           <LineChart data={data}>
             <XAxis dataKey="day" />
             <YAxis />
-            <Tooltip />
+            <Tooltip
+  contentStyle={{
+    backgroundColor: "#111827",
+    border: "1px solid #374151",
+    borderRadius: "8px",
+    color: "#fff",
+  }}
+  formatter={(value: any) => [`${value} hrs`, "Delay"]}
+/>
             <Line type="monotone" dataKey="delay" stroke="#60A5FA" />
           </LineChart>
         </ResponsiveContainer>
