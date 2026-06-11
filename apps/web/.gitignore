@@ -42,3 +42,10 @@ next-env.d.ts
 
 # Repomix files
 repomix*
+
+venv/
+apps/api/venv/
+__pycache__/
+*.pyc
+.next/
+node_modules/

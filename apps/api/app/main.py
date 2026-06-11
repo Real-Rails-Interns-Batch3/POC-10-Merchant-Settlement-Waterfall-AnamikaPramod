@@ -1,0 +1,23 @@
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from app.routes.waterfall import router
+from app.routes.regulators import router as regulators_router
+
+app = FastAPI()
+app.include_router(regulators_router, prefix="/api")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+app.include_router(router, prefix="/api")
+
+@app.get("/")
+def home():
+    return {
+        "message": "Merchant Settlement Waterfall API"
+    }
