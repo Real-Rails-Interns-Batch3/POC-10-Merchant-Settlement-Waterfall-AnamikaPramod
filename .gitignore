@@ -1,12 +1,19 @@
 # Python
 venv/
+.venv/
 apps/api/venv/
+apps/api/.venv/
 __pycache__/
 *.pyc
+*.egg-info/
+dist/
+build/
 
 # Next.js
 node_modules/
 .next/
+apps/web/node_modules/
+apps/web/.next/
 
 # Environment files
 .env
