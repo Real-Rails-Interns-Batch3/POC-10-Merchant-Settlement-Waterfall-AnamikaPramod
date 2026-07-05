@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect } from "react";
 
@@ -10,33 +10,53 @@ import ReserveHoldPanel from "@/components/ReserveHoldPanel";
 import WhyThisMatters from "@/components/WhyThisMatters";
 import WhoControlsRail from "@/components/WhoControlsRail";
 
+type FilterState = {
+  merchant: string;
+  processor: string;
+  region: string;
+};
+
+type WaterfallData = {
+  gross: number;
+  fees: number;
+  reserve: number;
+  net: number;
+};
+
+type DelayPoint = {
+  day: string;
+  delay: number;
+};
+
 export default function Home() {
-  const [filters, setFilters] = useState({
+  const apiBaseUrl = process.env.NEXT_PUBLIC_API_URL ?? "http://127.0.0.1:8000";
+
+  const [filters, setFilters] = useState<FilterState>({
     merchant: "Retail",
     processor: "Stripe",
     region: "Northeast",
   });
 
-  const [waterfallData, setWaterfallData] = useState<any>(null);
-  const [delayData, setDelayData] = useState<any[]>([]);
+  const [waterfallData, setWaterfallData] = useState<WaterfallData | null>(null);
+  const [delayData, setDelayData] = useState<DelayPoint[]>([]);
 
   useEffect(() => {
     async function fetchData() {
       const res1 = await fetch(
-        `http://127.0.0.1:8000/api/waterfall?merchant=${filters.merchant}&processor=${filters.processor}`
+        `${apiBaseUrl}/api/waterfall?merchant=${filters.merchant}&processor=${filters.processor}`
       );
-      const data1 = await res1.json();
+      const data1 = (await res1.json()) as WaterfallData | null;
       setWaterfallData(data1);
 
       const res2 = await fetch(
-        `http://127.0.0.1:8000/api/delay?merchant=${filters.merchant}&processor=${filters.processor}`
+        `${apiBaseUrl}/api/delay?merchant=${filters.merchant}&processor=${filters.processor}`
       );
-      const data2 = await res2.json();
+      const data2 = (await res2.json()) as DelayPoint[];
       setDelayData(data2);
     }
 
     fetchData();
-  }, [filters]);
+  }, [filters, apiBaseUrl]);
 
   return (
     <div className="min-h-screen bg-[#030712] text-white p-6">
@@ -77,7 +97,7 @@ export default function Home() {
 
             <div className="bg-[#111827] border border-gray-800 rounded-2xl p-5">
               <p className="text-gray-400 text-sm">Reserve Hold</p>
-              <h2 className="text-3xl font-bold text-yellow-400">
+              <h2 className="text-3xl font-bold text-[#38BDF8]">
                 -${waterfallData?.reserve?.toLocaleString() || "-"}
               </h2>
             </div>
@@ -117,13 +137,6 @@ export default function Home() {
   <WhoControlsRail />
     
   </div>
-
- 
-
-
-
-          
-
         </div>
       </div>
     </div>

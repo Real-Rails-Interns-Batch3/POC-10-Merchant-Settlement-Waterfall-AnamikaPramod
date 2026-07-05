@@ -10,7 +10,18 @@ import {
   Cell,
 } from "recharts";
 
-export default function SettlementWaterfall({ data }: any) {
+type WaterfallData = {
+  gross: number;
+  fees: number;
+  reserve: number;
+  net: number;
+};
+
+type SettlementWaterfallProps = {
+  data: WaterfallData | null;
+};
+
+export default function SettlementWaterfall({ data }: SettlementWaterfallProps) {
   if (!data) return null;
 
   const chartData = [
@@ -26,20 +37,20 @@ export default function SettlementWaterfall({ data }: any) {
     <div className="bg-[#111827] p-6 rounded-2xl border border-gray-800">
       <h2 className="text-xl font-bold mb-4">Waterfall</h2>
 
-      <div style={{ width: "100%", height: 300 }}>
-        <ResponsiveContainer>
+      <div style={{ width: "100%", height: 300, minWidth: 0, minHeight: 300 }}>
+        <ResponsiveContainer width="100%" height={300}>
           <BarChart data={chartData}>
             <XAxis dataKey="name" />
             <YAxis />
             <Tooltip
-  contentStyle={{
-    backgroundColor: "#111827",
-    border: "1px solid #374151",
-    borderRadius: "8px",
-    color: "#fff",
-  }}
-  formatter={(value: any) => [`$${value}`, "Amount"]}
-/>
+              contentStyle={{
+                backgroundColor: "#111827",
+                border: "1px solid #374151",
+                borderRadius: "8px",
+                color: "#fff",
+              }}
+              formatter={(value: unknown) => [`$${Number(value) ?? 0}`, "Amount"]}
+            />
 
             <Bar dataKey="value">
               {chartData.map((_, i) => (

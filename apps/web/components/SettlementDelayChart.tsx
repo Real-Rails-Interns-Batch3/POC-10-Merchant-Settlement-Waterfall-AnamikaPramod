@@ -9,7 +9,16 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-export default function SettlementDelayChart({ data }: any) {
+type DelayDataPoint = {
+  day: string;
+  delay: number;
+};
+
+type SettlementDelayChartProps = {
+  data: DelayDataPoint[];
+};
+
+export default function SettlementDelayChart({ data }: SettlementDelayChartProps) {
   if (!data || !Array.isArray(data)) return null;
 
   return (
@@ -18,20 +27,20 @@ export default function SettlementDelayChart({ data }: any) {
         Settlement Delay Analytics
       </h2>
 
-      <div style={{ width: "100%", height: 300 }}>
-        <ResponsiveContainer>
+      <div style={{ width: "100%", height: 300, minWidth: 0, minHeight: 300 }}>
+        <ResponsiveContainer width="100%" height={300}>
           <LineChart data={data}>
             <XAxis dataKey="day" />
             <YAxis />
             <Tooltip
-  contentStyle={{
-    backgroundColor: "#111827",
-    border: "1px solid #374151",
-    borderRadius: "8px",
-    color: "#fff",
-  }}
-  formatter={(value: any) => [`${value} hrs`, "Delay"]}
-/>
+              contentStyle={{
+                backgroundColor: "#111827",
+                border: "1px solid #374151",
+                borderRadius: "8px",
+                color: "#fff",
+              }}
+              formatter={(value: unknown) => [`${Number(value) ?? 0} hrs`, "Delay"]}
+            />
             <Line type="monotone" dataKey="delay" stroke="#60A5FA" />
           </LineChart>
         </ResponsiveContainer>

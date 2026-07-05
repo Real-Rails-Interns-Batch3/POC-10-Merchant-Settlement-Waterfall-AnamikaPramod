@@ -1,6 +1,16 @@
 "use client";
 
-export default function PricingScenario({ data }: any) {
+type PricingScenarioData = {
+  fees: number;
+  reserve: number;
+  net: number;
+};
+
+type PricingScenarioProps = {
+  data: PricingScenarioData | null;
+};
+
+export default function PricingScenario({ data }: PricingScenarioProps) {
   if (!data) return null;
 
   return (

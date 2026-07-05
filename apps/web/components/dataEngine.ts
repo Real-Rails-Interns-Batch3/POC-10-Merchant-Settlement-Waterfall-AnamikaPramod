@@ -1,4 +1,9 @@
-export function getSettlementData(filters: any) {
+export type FilterState = {
+  merchant?: string;
+  processor?: string;
+};
+
+export function getSettlementData(filters: FilterState) {
   const baseGross = 125000
 
   // Merchant multiplier
@@ -27,7 +32,7 @@ export function getSettlementData(filters: any) {
   }
 }
 
-export function getDelayData(filters: any) {
+export function getDelayData(filters: FilterState) {
   let base = [24, 30, 18, 42, 36, 20]
 
   // Merchant effects on settlement speed

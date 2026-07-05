@@ -1,6 +1,15 @@
 "use client";
 
-export default function ReserveHoldPanel({ data }: any) {
+type ReserveHoldPanelData = {
+  reserve: number;
+  gross: number;
+};
+
+type ReserveHoldPanelProps = {
+  data: ReserveHoldPanelData | null;
+};
+
+export default function ReserveHoldPanel({ data }: ReserveHoldPanelProps) {
   if (!data) return null;
 
   return (
@@ -14,7 +23,7 @@ export default function ReserveHoldPanel({ data }: any) {
 
         <div>
           <p className="text-gray-400">Current Reserve Hold</p>
-          <p className="text-2xl font-bold text-yellow-400">
+          <p className="text-2xl font-bold text-[#38BDF8]">
             ${data.reserve?.toLocaleString()}
           </p>
         </div>

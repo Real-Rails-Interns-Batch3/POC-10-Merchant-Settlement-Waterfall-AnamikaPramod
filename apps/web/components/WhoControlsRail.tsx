@@ -2,14 +2,26 @@
 
 import { useEffect, useState } from "react";
 
+type RegulatorsData = {
+  cfpb: {
+    name: string;
+    role: string;
+  };
+  federal_reserve: {
+    name: string;
+    role: string;
+  };
+} | null;
+
 export default function WhoControlsRail() {
-  const [data, setData] = useState<any>(null);
+  const [data, setData] = useState<RegulatorsData>(null);
+  const apiBaseUrl = process.env.NEXT_PUBLIC_API_URL ?? "http://127.0.0.1:8000";
 
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/api/regulators")
+    fetch(`${apiBaseUrl}/api/regulators`)
       .then((res) => res.json())
       .then((result) => setData(result));
-  }, []);
+  }, [apiBaseUrl]);
 
   if (!data) {
     return <div>Loading...</div>;

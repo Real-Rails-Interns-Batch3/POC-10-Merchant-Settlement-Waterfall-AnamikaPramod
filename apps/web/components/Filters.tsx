@@ -1,6 +1,19 @@
 "use client";
 
-export default function Filters({ filters, setFilters }: any) {
+import { Dispatch, SetStateAction } from "react";
+
+type Filters = {
+  merchant: string;
+  processor: string;
+  region: string;
+};
+
+type FiltersProps = {
+  filters: Filters;
+  setFilters: Dispatch<SetStateAction<Filters>>;
+};
+
+export default function Filters({ filters, setFilters }: FiltersProps) {
   return (
     <div className="bg-[#111827] p-6 rounded-2xl border border-gray-800">
 

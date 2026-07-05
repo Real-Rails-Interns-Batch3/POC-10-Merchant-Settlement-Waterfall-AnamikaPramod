@@ -22,7 +22,7 @@ export default function Header() {
 
         <div className="bg-[#1F2937] p-4 rounded-xl">
           <p className="text-gray-400 text-sm">Reserve Hold</p>
-          <h2 className="text-2xl font-bold text-yellow-400">-$5,000</h2>
+          <h2 className="text-2xl font-bold text-[#38BDF8]">-$5,000</h2>
         </div>
 
         <div className="bg-[#1F2937] p-4 rounded-xl">
